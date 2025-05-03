@@ -10,26 +10,30 @@ public class ReportsLogs extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         displayInfoPanel.setVisible(false);
+        loadReportsLogsTable();
+        reportsLogsTable.removeColumn(reportsLogsTable.getColumnModel().getColumn(1));
         reportsLogsTable.getSelectionModel().addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             @Override
             public void valueChanged(javax.swing.event.ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = reportsLogsTable.getSelectedRow();
                     if (selectedRow != -1) {
-                        // Retrieve values from the selected row.
-                        Object transactionId = reportsLogsTable.getValueAt(selectedRow, 0);
-                        Object borrowerIdObj = reportsLogsTable.getValueAt(selectedRow, 1);
-                        Object equipmentType = reportsLogsTable.getValueAt(selectedRow, 2);
-                        Object dateBorrowed = reportsLogsTable.getValueAt(selectedRow, 3);
-                        Object dateReturn = reportsLogsTable.getValueAt(selectedRow, 4);
-                        Object status = reportsLogsTable.getValueAt(selectedRow, 5);
+                        DefaultTableModel model = (DefaultTableModel) reportsLogsTable.getModel();
+                        Object transactionId = model.getValueAt(selectedRow, 0);
+                        Object borrowerIdObj = model.getValueAt(selectedRow, 1);
+                        Object tableName = model.getValueAt(selectedRow, 2);
+                        Object equipmentType = model.getValueAt(selectedRow, 3);
+                        Object dateBorrowed = model.getValueAt(selectedRow, 4);
+                        Object dateReturned = model.getValueAt(selectedRow, 5);
+                        Object status = model.getValueAt(selectedRow, 6);
                         
                         // Populate the integrated display info panel.
                         idValue.setText(String.valueOf(transactionId));
                         borrowerIdValue.setText(String.valueOf(borrowerIdObj));
+                        nameValue.setText(String.valueOf(tableName));
                         equipmentTypeValue.setText(String.valueOf(equipmentType));
                         dateBorrowedValue.setText(String.valueOf(dateBorrowed));
-                        dateReturnValue.setText(String.valueOf(dateReturn));
+                        dateReturnValue.setText(String.valueOf(dateReturned));
                         statusValue.setText(String.valueOf(status));
                         
                         // Additionally, load full borrower details.
@@ -201,18 +205,35 @@ public class ReportsLogs extends javax.swing.JFrame {
 
         reportsLogsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Borrower ID", "Equipment Type", "Date Borrowed", "Date Returned", "Status"
+                "ID", "Borrower ID", "Name", "Equipment Type", "Date Borrowed", "Date Returned", "Status"
             }
-        ));
-        jScrollPane1.setViewportView(reportsLogsTable);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 660, 350));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(reportsLogsTable);
+        if (reportsLogsTable.getColumnModel().getColumnCount() > 0) {
+            reportsLogsTable.getColumnModel().getColumn(0).setResizable(false);
+            reportsLogsTable.getColumnModel().getColumn(1).setResizable(false);
+            reportsLogsTable.getColumnModel().getColumn(2).setResizable(false);
+            reportsLogsTable.getColumnModel().getColumn(3).setResizable(false);
+            reportsLogsTable.getColumnModel().getColumn(4).setResizable(false);
+            reportsLogsTable.getColumnModel().getColumn(5).setResizable(false);
+            reportsLogsTable.getColumnModel().getColumn(6).setResizable(false);
+        }
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 690, 350));
 
         refreshButton.setText("Refresh");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -350,12 +371,14 @@ public class ReportsLogs extends javax.swing.JFrame {
         model.addRow(new Object[]{
             record.getTransactionId(),
             record.getBorrowerId(),
+            record.getBorrowerName(),
             record.getEquipmentType(),
             record.getDateBorrowed(),
             record.getDateReturn(),
             record.getStatus()
         });
     }
+    
 }
     
     private void ProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfileActionPerformed

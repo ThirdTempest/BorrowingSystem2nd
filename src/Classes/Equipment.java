@@ -13,22 +13,19 @@ public class Equipment {
     private String equipmentType;
     private int available;
     private int borrowed;
-    private int damaged;
 
     // Constructor with all fields
-    public Equipment(String equipmentType, int id, int available, int borrowed, int damaged) {
+    public Equipment(String equipmentType, int id, int available, int borrowed) {
         this.id = id;
         this.equipmentType = equipmentType;
         this.available = available;
         this.borrowed = borrowed;
-        this.damaged = damaged;
     }
     
     // Default constructor
     public Equipment() {
     }
-
-    // Getters and Setters
+    
     public int getId() {
         return id;
     }
@@ -61,17 +58,9 @@ public class Equipment {
         this.borrowed = borrowed;
     }
     
-    public int getDamaged() {
-        return damaged;
-    }
-    
-    public void setDamaged(int damaged) {
-        this.damaged = damaged;
-    }
-    
-    // A derived property that calculates the total number of equipments
+    // Method to calculate Total Equipments
     public int getTotal() {
-        return available + borrowed + damaged;
+        return available + borrowed ;
     }
     
     @Override
@@ -81,7 +70,6 @@ public class Equipment {
                ", equipmentType='" + equipmentType + '\'' +
                ", available=" + available +
                ", borrowed=" + borrowed +
-               ", damaged=" + damaged +
                ", total=" + getTotal() +
                '}';
     }

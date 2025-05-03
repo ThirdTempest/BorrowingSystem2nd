@@ -9,6 +9,7 @@ public class BorrowingRecords extends javax.swing.JFrame {
     public BorrowingRecords() {
         initComponents();
         setLocationRelativeTo(null);
+        loadBorrowingRecords();
         displayInfoPanel.setVisible(false);
         borrowingRecordsTable.removeColumn(borrowingRecordsTable.getColumnModel().getColumn(1));
         borrowingRecordsTable.getSelectionModel().addListSelectionListener(new javax.swing.event.ListSelectionListener(){
@@ -24,7 +25,7 @@ public class BorrowingRecords extends javax.swing.JFrame {
                     Object tableName = model.getValueAt(selectedRow, 2);
                     Object equipmentType = model.getValueAt(selectedRow, 3);
                     Object dateBorrowed = model.getValueAt(selectedRow, 4);
-                    Object dateReturned = model.getValueAt(selectedRow, 5);
+                    Object dateReturn = model.getValueAt(selectedRow, 5);
                     Object status = model.getValueAt(selectedRow, 6);
                     
                     int borrowerId;
@@ -57,7 +58,7 @@ public class BorrowingRecords extends javax.swing.JFrame {
                     borrowerIdValue.setText(String.valueOf(borrowerId));
                     equipmentTypeValue.setText(String.valueOf(equipmentType));
                     dateBorrowedValue.setText(String.valueOf(dateBorrowed));
-                    dateReturnValue.setText(String.valueOf(dateReturned));
+                    dateReturnValue.setText(String.valueOf(dateReturn));
                     statusValue.setText(String.valueOf(status));
 
                     // Make the detail information panel visible.
@@ -108,7 +109,6 @@ public class BorrowingRecords extends javax.swing.JFrame {
         addressValue = new javax.swing.JTextField();
         purposeValue = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        refreshBtn = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
@@ -228,8 +228,6 @@ public class BorrowingRecords extends javax.swing.JFrame {
         if (borrowingRecordsTable.getColumnModel().getColumnCount() > 0) {
             borrowingRecordsTable.getColumnModel().getColumn(0).setResizable(false);
             borrowingRecordsTable.getColumnModel().getColumn(1).setResizable(false);
-            borrowingRecordsTable.getColumnModel().getColumn(2).setResizable(false);
-            borrowingRecordsTable.getColumnModel().getColumn(3).setResizable(false);
             borrowingRecordsTable.getColumnModel().getColumn(4).setResizable(false);
             borrowingRecordsTable.getColumnModel().getColumn(5).setResizable(false);
             borrowingRecordsTable.getColumnModel().getColumn(6).setResizable(false);
@@ -343,14 +341,6 @@ public class BorrowingRecords extends javax.swing.JFrame {
 
         getContentPane().add(displayInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, 370, 570));
 
-        refreshBtn.setText("Refresh");
-        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshBtnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(refreshBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, -1, -1));
-
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
@@ -409,10 +399,6 @@ public class BorrowingRecords extends javax.swing.JFrame {
         profile.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ProfileActionPerformed
-
-    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-        loadBorrowingRecords();
-    }//GEN-LAST:event_refreshBtnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         AddBorrower add = new AddBorrower();
@@ -526,6 +512,7 @@ public class BorrowingRecords extends javax.swing.JFrame {
                 record.getStatus()
             });
         }
+        searchField.setText("");
     }//GEN-LAST:event_searchButtonActionPerformed
     
     
@@ -624,7 +611,6 @@ public class BorrowingRecords extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameValue;
     private javax.swing.JTextField purposeValue;
-    private javax.swing.JButton refreshBtn;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JTextField statusValue;

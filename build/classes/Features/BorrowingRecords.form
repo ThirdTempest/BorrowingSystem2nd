@@ -230,12 +230,12 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -573,19 +573,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="refreshBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Refresh"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshBtnActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="640" y="110" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JTextField" name="searchField">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchFieldActionPerformed"/>

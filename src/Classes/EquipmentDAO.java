@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Classes;
 import java.sql.Connection;
 import Connection.DBEquipment;
@@ -13,7 +10,7 @@ public class EquipmentDAO {
     
     public static Equipment getEquipmentByType(String type) {
         Equipment equipment = null;
-        String query = "SELECT available, borrowed, damaged, (available + borrowed + damaged) AS total " +
+        String query = "SELECT available, borrowed, (available + borrowed ) AS total " +
                 "FROM Equipment WHERE equipment_type = ?";
         try (Connection con = DBEquipment.getConnection();
              PreparedStatement pstmt = con.prepareStatement(query)) {
@@ -25,7 +22,6 @@ public class EquipmentDAO {
                         type,
                         rs.getInt("available"),
                         rs.getInt("borrowed"),
-                        rs.getInt("damaged"),
                         rs.getInt("total")
                 );
             }

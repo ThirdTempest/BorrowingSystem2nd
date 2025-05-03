@@ -86,6 +86,7 @@ public class Dashboard extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HOME");
         setBackground(new java.awt.Color(153, 153, 153));
+        setPreferredSize(new java.awt.Dimension(912, 454));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Edwardian Script ITC", 1, 60)); // NOI18N

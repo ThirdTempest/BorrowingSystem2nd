@@ -1,12 +1,15 @@
 
 package Features;
 import Classes.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 public class AddBorrower extends javax.swing.JFrame {
 
     public AddBorrower() {
         initComponents();
+        jStatus.setText("Active");
     }
 
     @SuppressWarnings("unchecked")
@@ -47,6 +50,12 @@ public class AddBorrower extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Imprint MT Shadow", 0, 13)); // NOI18N
         jLabel2.setText("Contact Number");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 90, -1, -1));
+
+        jName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNameActionPerformed(evt);
+            }
+        });
         jPanel1.add(jName, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 58, 190, -1));
         jPanel1.add(jContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 86, 190, -1));
 
@@ -95,8 +104,27 @@ public class AddBorrower extends javax.swing.JFrame {
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 254, -1, -1));
         jPanel1.add(jAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 114, 190, -1));
         jPanel1.add(jPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 142, 190, -1));
+
+        jDateBorrowed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateBorrowedMouseClicked(evt);
+            }
+        });
+        jDateBorrowed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDateBorrowedActionPerformed(evt);
+            }
+        });
         jPanel1.add(jDateBorrowed, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 198, 190, -1));
+
+        jDateReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateReturnMouseClicked(evt);
+            }
+        });
         jPanel1.add(jDateReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 226, 190, -1));
+
+        jStatus.setEditable(false);
         jPanel1.add(jStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 254, 190, -1));
 
         jLabel9.setFont(new java.awt.Font("Imprint MT Shadow", 1, 15)); // NOI18N
@@ -123,7 +151,10 @@ public class AddBorrower extends javax.swing.JFrame {
         
         if (name.isEmpty() || contact.isEmpty() || address.isEmpty() || purpose.isEmpty() || equipment.isEmpty() || dateb.isEmpty() || dater.isEmpty() || status.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please fill out all fields!", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
+            return;
+        } else if(!name.matches("^[A-Za-z ]+$") || !contact.matches("^09\\d{9}$") || !purpose.matches("^[A-Za-z ]+$")){
+            JOptionPane.showMessageDialog(this, "Invalid Format", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         try{
@@ -155,9 +186,30 @@ public class AddBorrower extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jNameActionPerformed
+
+    private void jDateBorrowedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDateBorrowedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateBorrowedActionPerformed
+
+    private void jDateBorrowedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateBorrowedMouseClicked
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Set the date automatically
+        jDateBorrowed.setText(currentDate.format(formatter));
+    }//GEN-LAST:event_jDateBorrowedMouseClicked
+
+    private void jDateReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateReturnMouseClicked
+        LocalDate currentDate = LocalDate.now();
+        LocalDate returnDate = currentDate.plusDays(3);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        jDateReturn.setText(returnDate.format(formatter));
+    }//GEN-LAST:event_jDateReturnMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

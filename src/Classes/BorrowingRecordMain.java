@@ -141,8 +141,8 @@ public class BorrowingRecordMain {
     
     public List<BorrowingRecord> getAllSoftDeletedRecords() {
     List<BorrowingRecord> records = new ArrayList<>();
-    String query = "SELECT transaction_id, borrower_id, equipment_type, date_borrowed, date_return, status " +
-                   "FROM BorrowingRecords WHERE is_deleted = 1";
+    String query = "SELECT br.transaction_id, br.borrower_id, b.name AS borrower_name, br.equipment_type, br.date_borrowed, br.date_return, br.status " +
+                   "FROM BorrowingRecords br JOIN Borrowers b ON br.borrower_id = b.borrower_id WHERE br.is_deleted = 1";
     try (Connection con = DBEquipment.getConnection();
          Statement stmt = con.createStatement();
          ResultSet rs = stmt.executeQuery(query)) {
@@ -151,6 +151,7 @@ public class BorrowingRecordMain {
             BorrowingRecord record = new BorrowingRecord();
             record.setTransactionId(rs.getInt("transaction_id"));
             record.setBorrowerId(rs.getInt("borrower_id"));
+            record.setBorrowerName(rs.getString("borrower_name"));
             record.setEquipmentType(rs.getString("equipment_type"));
             record.setDateBorrowed(rs.getDate("date_borrowed"));
             record.setDateReturn(rs.getDate("date_return"));
